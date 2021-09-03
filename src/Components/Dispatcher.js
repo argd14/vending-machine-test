@@ -15,6 +15,7 @@ const distpachAction = async ()=>{
         const interval = await setInterval(()=>{
             clearInterval(interval);
             console.log('producto despachado',dispatcherArrayNew.name);
+            window.alert('producto despachado',dispatcherArrayNew.name);
         },dispatcherArrayNew.prepTime*1000)
     } catch (error) {
         console.error(error);

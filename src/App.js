@@ -4,13 +4,18 @@ import './App.css';
 import Card from './Components/Card'
 import Dispatcher from './Components/Dispatcher';
 import OrderedItems from './Components/OrderedItems';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function App() {
   const url = 'https://vending-machine-test.vercel.app/api/products';
+  // state for the list of products fetched from API
   const [products, setProducts] = useState([])
 
   // use state to select a product to the new state to be added to the dispatcher 
   const [select,setSelect] = useState([])
+
+  //
+  const [loading, setLoading] = useState(false)
   const message = 'There was an Error with your request'
 
   // request to obtain the products from internal array
@@ -26,10 +31,18 @@ function App() {
 
 useEffect(()=>{
   fetchApi()
+  setLoading(true)
+  setTimeout(() => {
+    setLoading(false)
+  }, 5000);
 }, [])
   return (
     <div className="App">
-  
+      {
+        loading ?
+<ClipLoader color={"#36D7B7"} loading={loading} size={150} />
+        :
+      <>
         <h1 className="text-light h1"> Vending Machine </h1>
           <h2 className="text-light h2">Select your products</h2>
           <div className="container d-flex justify-content-center align-items-center h-100 pb-4">
@@ -53,6 +66,8 @@ useEffect(()=>{
             <OrderedItems name="Ordered items"/>
           </div>
             </div>
+            </>
+      }
     </div>
   );
 }
